@@ -23,6 +23,7 @@ do
     Console.WriteLine("11 - Adivinhar um numero ");
     Console.WriteLine("12 - Financiamento");
     Console.WriteLine("13 - Aposentadoria");
+    Console.WriteLine("14 - Juros compostos");
     Console.WriteLine("DIgite Sua opção: ");
     string entrada = Console.ReadLine();
     opçao = int.Parse(entrada);
@@ -75,6 +76,9 @@ do
         case 13:
             aposentadoria();
             break;
+        case 14:
+            juroscompostos();
+            break;
 
     }
 
@@ -93,6 +97,8 @@ fatorial();
 tabuada();
 multiplos3();
 adivinhar();
+juroscompostos();
+
 
 
 
@@ -154,24 +160,21 @@ void multiplos3()
 }
 void financiamento ()
 {
-    int i;
-    double divisaoveiculo =0, valortaxa=0, valortotal = 0;
     Console.WriteLine("Informe o valor do veiculo");
     double valorVeiculo = double.Parse(Console.ReadLine());
     Console.WriteLine("Informe o numero de parcelas");
     double NumeroParcelas = double.Parse(Console.ReadLine());
-    Console.WriteLine("Informe taxa mensal ");
-    double taxamensal = double.Parse(Console.ReadLine()) / 100;
-
-    for (i = 0; i != NumeroParcelas; i++)
+    double taxa = (valorVeiculo * 0.0193) * NumeroParcelas;
+    if(NumeroParcelas == 1)
     {
-        divisaoveiculo = valorVeiculo / NumeroParcelas;
-        valortaxa = divisaoveiculo +( divisaoveiculo * taxamensal);
-        valortotal = valortaxa +valorVeiculo;
-        
-
+        taxa = valorVeiculo * 0.15;
     }
-    Console.WriteLine("Valor do Veiculo Total igual a :" + valortotal);
+
+    double juros = taxa + valorVeiculo;
+
+    
+    Console.WriteLine("Valor do Veiculo Total igual a :R$" + juros);
+    Console.WriteLine("Valor da taxa igual a :R$"+ taxa);
 
 }
 
@@ -335,23 +338,55 @@ void aumento ()
     double porcentagemdeaumento = double.Parse(Console.ReadLine())/100;
     double percentualaumento = (double)(salario * porcentagemdeaumento);
     Console.WriteLine("Percentual de aumento é " + percentualaumento);
-    double novsal = (double)(salario + percentualaumento);
-    Console.WriteLine("Valor do novo salario é " + novsal);
+    double novosalario = (double)(salario + percentualaumento);
+    Console.WriteLine("Valor do novo salario é " + novosalario);
     Console.WriteLine("Salario inicial é " + salario);
 
 }
 void aposentadoria()
 {
     Console.WriteLine("Informe a sua idade");
-    int idade = int.Parse(Console.ReadLine());
+    float idade = int.Parse(Console.ReadLine());
     Console.WriteLine("Informe a idade que quer se aposentar");
-    int idadefinal = int.Parse(Console.ReadLine());
+    float idadefinal = int.Parse(Console.ReadLine());
     Console.WriteLine("Valor para aposentadoria");
-    float valoraposentadoria= float.Parse(Console.ReadLine());
+    float valoraposentadoria = float.Parse(Console.ReadLine());
     Console.WriteLine("Qual sua taxa de rendimento");
-    float taxarendimento = float.Parse(Console.ReadLine());
-    float valoracumulado = (idadefinal- idade) * valoraposentadoria;
-    Console.WriteLine("Valor acumulado " + valoracumulado);
-    float rendamensal = taxarendimento + valoracumulado;
-    Console.WriteLine("Renda mensal igual a "+ rendamensal);
+    double taxarendimento = 0.02;
+    float anosrendimento = (idadefinal - idade)*12;
+    double juros = valoraposentadoria * taxarendimento   *  anosrendimento ;
+    double juroscompostos = valoraposentadoria + juros;
+
+    for (int i = 0; i < anosrendimento; i++)
+    {
+        juros *= 1 + taxarendimento;
+    }
+    double dinheiro = valoraposentadoria + juros;
+    Console.WriteLine("Juros compostos igual a "+juroscompostos );
+    Console.WriteLine("Juros igual a "+(juros/12));
+    Console.WriteLine("valor mais juros "+ (dinheiro/12));
 }
+    void juroscompostos()
+    {
+        Console.WriteLine("digite o Capital inicial:");
+        float P = int.Parse(Console.ReadLine());
+        Console.WriteLine("digite a taxa de Juros :");
+        float j = int.Parse(Console.ReadLine());
+        Console.WriteLine("digite o tempo de parclamento :");
+        float n = int.Parse(Console.ReadLine());
+        float juros = P * j * n;
+        float S = P + juros;
+
+        juros = 1;
+        for (float i = 0; i <= n; i++)
+        {
+            juros *= 1 + j;
+
+        }
+        float C = P + juros;
+
+        Console.WriteLine("Juros Simples =  {0}, juros composto {1}: ", S, C);
+        Console.WriteLine("Numero de parcelas juros Simples = {0} ", (S / 12));
+        Console.WriteLine("Numero de parcelas juros Composto = {0} ", (C / 12));
+    }
+
