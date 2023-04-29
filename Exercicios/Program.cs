@@ -160,21 +160,24 @@ void multiplos3()
 }
 void financiamento ()
 {
+  
+    double divisaoveiculo =0, valortaxa=0, valortotal = 0;
     Console.WriteLine("Informe o valor do veiculo");
     double valorVeiculo = double.Parse(Console.ReadLine());
     Console.WriteLine("Informe o numero de parcelas");
     double NumeroParcelas = double.Parse(Console.ReadLine());
-    double taxa = (valorVeiculo * 0.0193) * NumeroParcelas;
-    if(NumeroParcelas == 1)
+    Console.WriteLine("Informe taxa mensal ");
+    double taxamensal = double.Parse(Console.ReadLine()) / 100;
+    double juros = valorVeiculo *taxamensal*NumeroParcelas;
+    double jurosimples= valorVeiculo + juros;
+    for (int i = 0; i <= NumeroParcelas; i++)
     {
-        taxa = valorVeiculo * 0.15;
+        juros *=  1 + taxamensal;
     }
 
-    double juros = taxa + valorVeiculo;
-
-    
-    Console.WriteLine("Valor do Veiculo Total igual a :R$" + juros);
-    Console.WriteLine("Valor da taxa igual a :R$"+ taxa);
+    double dinheiro = valorVeiculo + juros;
+    Console.WriteLine("Valor do Veiculo Total igual a :" + juros);
+    Console.WriteLine("Valor juros simples" + jurosimples);
 
 }
 
@@ -352,16 +355,16 @@ void aposentadoria()
     Console.WriteLine("Valor para aposentadoria");
     float valoraposentadoria = float.Parse(Console.ReadLine());
     Console.WriteLine("Qual sua taxa de rendimento");
-    double taxarendimento = 0.02;
+    float taxarendimento = float.Parse(Console.ReadLine()) / 100;
     float anosrendimento = (idadefinal - idade)*12;
-    double juros = valoraposentadoria * taxarendimento   *  anosrendimento ;
-    double juroscompostos = valoraposentadoria + juros;
+    float juros = valoraposentadoria * taxarendimento   *  anosrendimento ;
+    float juroscompostos = valoraposentadoria + juros;
 
     for (int i = 0; i < anosrendimento; i++)
     {
         juros *= 1 + taxarendimento;
     }
-    double dinheiro = valoraposentadoria + juros;
+    float dinheiro = valoraposentadoria + juros;
     Console.WriteLine("Juros compostos igual a "+juroscompostos );
     Console.WriteLine("Juros igual a "+(juros/12));
     Console.WriteLine("valor mais juros "+ (dinheiro/12));
