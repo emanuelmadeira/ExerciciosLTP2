@@ -345,7 +345,7 @@ void aumento ()
 }
 void aposentadoria()
 {
-    double juroscompost = 0,acumulador=0,montante=0,juros = 0,juroscpt = 0 ;
+    double juroscompost = 0,acumulador=0,montante=0;
     Console.WriteLine("Informe a sua idade");
     double idade = int.Parse(Console.ReadLine());
     Console.WriteLine("Informe a idade que quer se aposentar");
@@ -355,17 +355,16 @@ void aposentadoria()
     double taxarendimento = 0.01;
     double anosrendimento = (idadefinal - idade)*12 ;
 
-    for (int i = 0; i < anosrendimento;i++)
+    for (double i = 0; i <= anosrendimento;i++)
     {
-       acumulador = acumulador + valoraposentadoria;
-        juros = acumulador * taxarendimento;
-        juroscompost = (juros + acumulador) * taxarendimento ;
-        juroscpt = (juroscompost+acumulador)*taxarendimento;
-        montante = juroscpt + juroscompost + acumulador;
+        acumulador = acumulador + valoraposentadoria;
+        juroscompost = juroscompost + (acumulador * 0.01);
+        montante = acumulador + juroscompost;
 
     }
+    
     double salarioliquido = montante * taxarendimento;
-    Console.WriteLine("Montante igua a " + montante);
+    Console.WriteLine("Montante igual a " + montante);
     Console.WriteLine($"Salario liquido igual a {salarioliquido}");
 
 }
