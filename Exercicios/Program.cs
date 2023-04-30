@@ -75,7 +75,7 @@ do
         case 13:
             aposentadoria();
             break;
-      
+  
 
     }
 
@@ -94,6 +94,7 @@ fatorial();
 tabuada();
 multiplos3();
 adivinhar();
+
 
 
 
@@ -344,6 +345,7 @@ void aumento ()
 }
 void aposentadoria()
 {
+    double juroscompost = 0,acumulador=0,montante=0,juros = 0,juroscpt = 0 ;
     Console.WriteLine("Informe a sua idade");
     double idade = int.Parse(Console.ReadLine());
     Console.WriteLine("Informe a idade que quer se aposentar");
@@ -351,23 +353,19 @@ void aposentadoria()
     Console.WriteLine("Valor para aposentadoria");
     double valoraposentadoria = double.Parse(Console.ReadLine());
     double taxarendimento = 0.01;
-    double anosrendimento = (idadefinal - idade) * 12;
-    double juros = (valoraposentadoria * taxarendimento) * anosrendimento;
-    double juroscompostos = valoraposentadoria + juros;
+    double anosrendimento = (idadefinal - idade)*12 ;
 
-    for (int i = 0; i < anosrendimento; i++)
+    for (int i = 0; i < anosrendimento;i++)
     {
-        juros *= 1 + taxarendimento;
+       acumulador = acumulador + valoraposentadoria;
+        juros = acumulador * taxarendimento;
+        juroscompost = (juros + acumulador) * taxarendimento ;
+        juroscpt = (juroscompost+acumulador)*taxarendimento;
+        montante = juroscpt + juroscompost + acumulador;
 
     }
-    double montante = valoraposentadoria + juros;
-    double dinheiroliquido = valoraposentadoria + juros;
-    double salarioliquido = dinheiroliquido * taxarendimento;
-    Console.WriteLine("Juros compostos igual a " + juroscompostos);
+    double salarioliquido = montante * taxarendimento;
     Console.WriteLine("Montante igua a " + montante);
-    Console.WriteLine("Juros igual a " + juros);
     Console.WriteLine($"Salario liquido igual a {salarioliquido}");
-    Console.WriteLine("valor para aposentadoria " + dinheiroliquido);
-}
-    
 
+}
