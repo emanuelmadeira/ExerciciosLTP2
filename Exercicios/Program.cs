@@ -23,7 +23,6 @@ do
     Console.WriteLine("11 - Adivinhar um numero ");
     Console.WriteLine("12 - Financiamento");
     Console.WriteLine("13 - Aposentadoria");
-    Console.WriteLine("14 - Juros compostos");
     Console.WriteLine("DIgite Sua opção: ");
     string entrada = Console.ReadLine();
     opçao = int.Parse(entrada);
@@ -76,9 +75,7 @@ do
         case 13:
             aposentadoria();
             break;
-        case 14:
-            juroscompostos();
-            break;
+      
 
     }
 
@@ -97,7 +94,7 @@ fatorial();
 tabuada();
 multiplos3();
 adivinhar();
-juroscompostos();
+
 
 
 
@@ -160,24 +157,25 @@ void multiplos3()
 }
 void financiamento ()
 {
-  
-    double divisaoveiculo =0, valortaxa=0, valortotal = 0;
+
     Console.WriteLine("Informe o valor do veiculo");
     double valorVeiculo = double.Parse(Console.ReadLine());
     Console.WriteLine("Informe o numero de parcelas");
     double NumeroParcelas = double.Parse(Console.ReadLine());
-    Console.WriteLine("Informe taxa mensal ");
-    double taxamensal = double.Parse(Console.ReadLine()) / 100;
-    double juros = valorVeiculo *taxamensal*NumeroParcelas;
-    double jurosimples= valorVeiculo + juros;
+    double taxamensal = 0.0193;
+    double juros = valorVeiculo * taxamensal * NumeroParcelas;
+    double taxaadministrativa = 0.0001;
+    double jurosadminstrativos = taxaadministrativa * valorVeiculo;
     for (int i = 0; i <= NumeroParcelas; i++)
     {
-        juros *=  1 + taxamensal;
+        juros *= 1 + taxamensal;
+        jurosadminstrativos *= 1 + taxaadministrativa;
     }
 
-    double dinheiro = valorVeiculo + juros;
-    Console.WriteLine("Valor do Veiculo Total igual a :" + juros);
-    Console.WriteLine("Valor juros simples" + jurosimples);
+    double dinheiro = valorVeiculo + juros + jurosadminstrativos;
+    double valorsemjuros = dinheiro - jurosadminstrativos - juros;
+    Console.WriteLine("Valor sem juros :" + valorsemjuros);
+    Console.WriteLine("Valor do Veiculo Total igual a :" + dinheiro);
 
 }
 
@@ -275,35 +273,33 @@ void impostorenda()
     { 
         double porcentagemdesconto = 7.5 / 100;
        double Salariocomdesconto = salarioBruto - (salarioBruto *porcentagemdesconto);
-        Console.WriteLine("Salario com desconto igual a " + Salariocomdesconto);
+        Console.WriteLine("Salario com desconto igual a R$" + Salariocomdesconto);
+        double valorapagar = salarioBruto * porcentagemdesconto;
+        Console.WriteLine("Valor a Pagar é de R$" + valorapagar);
     }
     else if (salarioBruto <= 3751.05)
     {
         double porcentagemdedesconto = 15.0 / 100;
         double salariocomdesconto = salarioBruto-(salarioBruto * porcentagemdedesconto);
-        Console.WriteLine("Salario com desconto igual a " + salariocomdesconto);
-        var valordaporcentagem = (salarioBruto * porcentagemdedesconto);
-        double valorapagar = valordaporcentagem - 142.80;
-        Console.WriteLine("Valor a pagar = " + valorapagar);
+        Console.WriteLine("Salario com desconto igual a R$" + salariocomdesconto);
+        double valorapagar = salarioBruto * porcentagemdedesconto;
+        Console.WriteLine("Valor a Pagar é de R$" + valorapagar);
     }
     else if (salarioBruto <= 4664.68)
     {
         double porcentagemdedesconto = 22.5 / 100;
         double salariocomdesconto = salarioBruto - (salarioBruto * porcentagemdedesconto);
-        Console.WriteLine("Salario com desconto igual a " + salariocomdesconto);
-        var valordaporcentagem = (salarioBruto * porcentagemdedesconto);
-        double valorapagar = valordaporcentagem - 142.80;
-        Console.WriteLine("Valor a pagar = " + valorapagar);
-
+        Console.WriteLine("Salario com desconto igual a R$" + salariocomdesconto);
+        double valorapagar = salarioBruto * porcentagemdedesconto;
+        Console.WriteLine("Valor a Pagar é de R$" + valorapagar);
     }
     else if (salarioBruto > 4664.68)
     {
         double porcentagemdedesconto = 27.5 / 100;
         double salariocomdesconto = salarioBruto - (salarioBruto * porcentagemdedesconto);
         Console.WriteLine("Salario com desconto igual a " + salariocomdesconto);
-        var valordaporcentagem = (salarioBruto * porcentagemdedesconto);
-        double valorapagar = valordaporcentagem - 142.80;
-        Console.WriteLine("Valor a pagar = " + valorapagar);
+        double valorapagar = salarioBruto * porcentagemdedesconto;
+        Console.WriteLine("Valor a Pagar é de R$" + valorapagar);
     }
 }
 void aluguel()
@@ -349,47 +345,29 @@ void aumento ()
 void aposentadoria()
 {
     Console.WriteLine("Informe a sua idade");
-    float idade = int.Parse(Console.ReadLine());
+    double idade = int.Parse(Console.ReadLine());
     Console.WriteLine("Informe a idade que quer se aposentar");
-    float idadefinal = int.Parse(Console.ReadLine());
+    double idadefinal = int.Parse(Console.ReadLine());
     Console.WriteLine("Valor para aposentadoria");
-    float valoraposentadoria = float.Parse(Console.ReadLine());
-    Console.WriteLine("Qual sua taxa de rendimento");
-    float taxarendimento = float.Parse(Console.ReadLine()) / 100;
-    float anosrendimento = (idadefinal - idade)*12;
-    float juros = valoraposentadoria * taxarendimento   *  anosrendimento ;
-    float juroscompostos = valoraposentadoria + juros;
+    double valoraposentadoria = double.Parse(Console.ReadLine());
+    double taxarendimento = 0.01;
+    double anosrendimento = (idadefinal - idade) * 12;
+    double juros = (valoraposentadoria * taxarendimento) * anosrendimento;
+    double juroscompostos = valoraposentadoria + juros;
 
     for (int i = 0; i < anosrendimento; i++)
     {
         juros *= 1 + taxarendimento;
+
     }
-    float dinheiro = valoraposentadoria + juros;
-    Console.WriteLine("Juros compostos igual a "+juroscompostos );
-    Console.WriteLine("Juros igual a "+(juros/12));
-    Console.WriteLine("valor mais juros "+ (dinheiro/12));
+    double montante = valoraposentadoria + juros;
+    double dinheiroliquido = valoraposentadoria + juros;
+    double salarioliquido = dinheiroliquido * taxarendimento;
+    Console.WriteLine("Juros compostos igual a " + juroscompostos);
+    Console.WriteLine("Montante igua a " + montante);
+    Console.WriteLine("Juros igual a " + juros);
+    Console.WriteLine($"Salario liquido igual a {salarioliquido}");
+    Console.WriteLine("valor para aposentadoria " + dinheiroliquido);
 }
-    void juroscompostos()
-    {
-        Console.WriteLine("digite o Capital inicial:");
-        float P = int.Parse(Console.ReadLine());
-        Console.WriteLine("digite a taxa de Juros :");
-        float j = int.Parse(Console.ReadLine());
-        Console.WriteLine("digite o tempo de parclamento :");
-        float n = int.Parse(Console.ReadLine());
-        float juros = P * j * n;
-        float S = P + juros;
-
-        juros = 1;
-        for (float i = 0; i <= n; i++)
-        {
-            juros *= 1 + j;
-
-        }
-        float C = P + juros;
-
-        Console.WriteLine("Juros Simples =  {0}, juros composto {1}: ", S, C);
-        Console.WriteLine("Numero de parcelas juros Simples = {0} ", (S / 12));
-        Console.WriteLine("Numero de parcelas juros Composto = {0} ", (C / 12));
-    }
+    
 
